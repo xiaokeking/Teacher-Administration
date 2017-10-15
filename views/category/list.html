@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>学IT - 后台管理系统</title>
+  <?php include '/views/common/css.html'; ?>
+</head>
+<body>
+
+<!-- 侧边栏 -->
+<?php include '/views/common/aside.html'; ?>
+<!-- 主体 -->
+<div class="main">
+  <div class="container-fluid">
+    <!-- 头部 -->
+    <?php include '/views/common/header.html'; ?>
+    <div class="body course-category">
+      <!-- 面包屑 -->
+      <ol class="breadcrumb">
+        <li><a href="javascript:;">课程管理</a></li>
+        <li class="active">课程分类</li>
+      </ol>
+      <div class="page-title">
+        <a href="/category/add" class="btn btn-success btn-sm pull-right">添加分类</a>
+      </div>
+      <div class="panel panel-default">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th width="18%">分类名称</th>
+            <th>课程数量</th>
+            <th>是否显示</th>
+            <th>排序</th>
+            <th width="10%">操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!--挖坑-->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php include '/views/common/js.html'; ?>
+
+<script type="text/html" id="category_list_tpl">
+  {{each result v i}}
+  <tr class="{{v.cg_pid=='0'?'active':''}}">
+    
+    {{if v.cg_pid == "0"}}
+    <td class="text-left">{{v.cg_name}}</td>
+    {{else}}
+    <td class="text-left">&nbsp;&nbsp;├ {{v.cg_name}}</td>
+    {{/if}}
+    
+    <td>{{v.total}}</td>
+    <td>{{v.cg_is_hide=="0"?"是":"否"}}</td>
+    <td>{{v.cg_order}}</td>
+    <td>
+      <a href="/category/add?cg_id={{v.cg_id}}" class="btn btn-info btn-xs">编辑</a>
+    </td>
+  </tr>
+  {{/each}}
+  
+</script>
+
+<script>
+  
+  //只需要引入分类页自己的模块
+  require(["dist/js/category/list.min"]);
+
+</script>
+</body>
+</html>
